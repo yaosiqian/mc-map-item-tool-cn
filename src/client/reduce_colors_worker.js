@@ -25,12 +25,12 @@ onmessage = function (oEvent) {
 
     percentage_done = Math.floor(i / l * 100);
     if (percentage_done > percentage_done_last + 1) {
-      postMessage({step: 'percentage', percentage: percentage_done});
+      postMessage({ step: 'percentage', percentage: percentage_done });
       percentage_done_last = percentage_done;
     }
   }
 
-  postMessage({step: 'finished', pixelData: pixelData, all_maps_data: all_maps_data});
+  postMessage({ step: 'finished', pixelData: pixelData, all_maps_data: all_maps_data });
 };
 
 
@@ -39,9 +39,9 @@ function reduce_colors_map(a, b, c, d, pixelData) {
   var compareColors;
 
   var color = new Colour(Colour.RGBA, [pixelData.data[a],
-    pixelData.data[b],
-    pixelData.data[c],
-    pixelData.data[d]
+  pixelData.data[b],
+  pixelData.data[c],
+  pixelData.data[d]
   ]);
 
   var old_a = pixelData.data[a];

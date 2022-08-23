@@ -1,46 +1,52 @@
-<html>
+<html lang="zh-Hans">
+
 <head>
-  <title>MC Map Item Tool</title>
+  <title>Minecraft 地图画生成器</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/main.css" rel="stylesheet" media="screen">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
+
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">MC Map Item Tool</a>
+        <a class="navbar-brand" href="#">Minecraft 地图画生成器</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/">Main</a></li>
+        <li><a href="/">主页</a></li>
         <li class="active"><a href="faq.html">FAQ</a></li>
-        <li><a href="settings.html">Settings</a></li>
+        <li><a href="settings.html">设置</a></li>
+        <li><a href="commandblock.html">指令生成器（实验性功能）</a></li>
       </ul>
     </div>
   </nav>
   <div class="container">
-    <h3><a name='q1'>What do I do with the map file?</a></h3>
+    <h3><a name='q1'>我应该如何处理地图文件？</a></h3>
     <p>
-      <ol>
-        <li>Create a map in minecraft</li>
-        <li>Go to the save folder of your world</li>
-        <li>Replace in the <em>data</em> folder there the created map_[i].dat with the downloaded one. ([i] is the number of the map)</li>
-        <li>Load the world in minecraft and enjoy your map</li>
-      </ol>
+    <ol>
+      <li>生成一个地图</li>
+      <li>打开世界文件夹</li>
+      <li>将你生成并下载的 map_[地图编号].dat 移动到 <em>data</em> 文件夹</li>
+      <li>重新载入世界</li>
+    </ol>
     </p>
-    <h3><a name='q2'>How is the map file created?</a></h3>
-    <p>mc-map-item-tool uses <a href="https://github.com/djfun/node-nbt">node-nbt</a> to create a file in the nbt format (which is being used by Minecraft) from a Javascript object.</p>
-    <h3><a name='q3'>What technologies are being used?</a></h3>
-    <p>We use here among other things the HTML5 File Api, Web Notifications, Canvas, Javascript (jquery and bootstrap for the layout, nodejs on the server, 
-      <a href="http://stevehanov.ca/blog/index.php?id=116">Colour.js</a> to adjust the colors for Minecraft)</p>
-    <h3><a name='q4'>I have found an error or want to make a feature request</a></h3>
-    <p>Just make a pull request on <a href="https://github.com/djfun/mc-map-item-tool">github</a> or create an issue ticket there.</p>
-    <h3><a name='q5'>How does a map item made by this tool look in minecraft?</a></h3>
-    <p>You can see some examples <a href="http://imgur.com/MMx0s">here</a>.</p>
-    <h3><a name='q6'>Why does the tool ask me how many maps I already have in my world?</a></h3>
-    <p>This number is used to give the downloadable map files the correct file name. If you want for example to replace map number 7 in your world you just have to input "7". When you use the split-image feature, all map files in the downloadable zip archive will get their number according to your input: If you input "7" and split the image into 4 parts the files will have the numbers 7, 8, 9 and 10.</p>
+    <h3><a name='q2'>地图文件是如何生成的？</a></h3>
+    <p>该项目使用 <a href="https://github.com/djfun/node-nbt">node-nbt</a> 来从一个 JavaScript 对象创建一个<a
+        href="https://minecraft.fandom.com/zh/wiki/NBT%E6%A0%BC%E5%BC%8F">NBT格式</a>的文件</p>
+    <h3><a name='q3'>该项目用了什么黑科技？</a></h3>
+    <p>HTML5 文件API，网页通知，Canvas，JavaScript (jQuery 和 bootstrap 用于网页布局，Node.js 用于服务器，Colour.js 用于调整 Minecraft 的颜色)</p>
+    <h3><a name='q4'>你家网站崩了/出Bug了咋办？</a></h3>
+    <p>请给原作者的 <a href="https://github.com/djfun/mc-map-item-tool">项目</a> 创建issue。但鉴于原作者已经不再维护，欢迎前来<a
+        href="https://github.com/yaosiqian/mc-map-item-tool-cn">中文版项目</a>发布PR</p>
+    <h3><a name='q5'>有地图实际外观吗？</a></h3>
+    <p>这里是原作者给的 <a href="http://imgur.com/MMx0s">图片</a></p>
+    <h3><a name='q6'>为什么这个工具会问我“之前生成了多少地图”？</a></h3>
+    <p>这个编号用来给生成的地图文件提供正确的文件名。例如，如果您想在您的世界中替换第 114514 号地图，您只需输入 "114514"。当使用分割图像功能时，生成的压缩文件中的所有地图文件将根据您的输入获得它们的编号。如果您输入
+      "15"，并将图像分割成4个部分，文件将有15、16、17和18的数字。</p>
   </div>
   <script src="js/jquery-1.10.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>

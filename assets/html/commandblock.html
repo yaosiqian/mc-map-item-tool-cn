@@ -1,21 +1,23 @@
-<html>
+<html lang="zh-Hans">
+
 <head>
-  <title>MC Map Item Tool</title>
+  <title>Minecraft 地图画生成器</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/main.css" rel="stylesheet" media="screen">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
+
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">MC Map Item Tool</a>
+        <a class="navbar-brand" href="#">Minecraft 地图画生成器</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/">Main</a></li>
+        <li><a href="/">主页</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="settings.html">Settings</a></li>
-        <li class="active"><a href="commandblock.html">Command Generator (experimental)</a></li>
+        <li><a href="settings.html">设置</a></li>
+        <li class="active"><a href="commandblock.html">指令生成器（实验性功能）</a></li>
       </ul>
     </div>
   </nav>
@@ -24,36 +26,36 @@
     <form class="form-horizontal">
       <fieldset>
         <div class="form-group">
-          <label for="map_parts_vertical" class="col-sm-3 control-label">Number of parts: vertical</label>
+          <label for="map_parts_vertical" class="col-sm-3 control-label">地图画的数量：纵向</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="map_parts_vertical" name="map_parts_vertical" value="1" />
           </div>
         </div>
         <div class="form-group">
-          <label for="map_parts_horizontal" class="col-sm-3 control-label">Number of parts: horizontal</label>
+          <label for="map_parts_horizontal" class="col-sm-3 control-label">地图画的数量：横向</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="map_parts_horizontal" name="map_parts_horizontal" value="1" />
           </div>
         </div>
         <div class="form-group">
-          <label for="direction" class="col-sm-3 control-label">Direction the item frames should face</label>
+          <label for="direction" class="col-sm-3 control-label">物品展示框朝向的方向</label>
           <div class="col-sm-9">
             <select name="direction" id="direction" class="form-control">
-              <option value="0">Towards positive z</option>
-              <option value="1">Towards negative x</option>
-              <option value="2">Towards negative z</option>
-              <option value="3">Towards positive x</option>
+              <option value="0">正 Z 轴</option>
+              <option value="1">正 X 轴</option>
+              <option value="2">负 Z 轴</option>
+              <option value="3">负 X 轴</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="mapnumber" class="col-sm-3 control-label">Number of the first map</label>
+          <label for="mapnumber" class="col-sm-3 control-label">导出的地图的编号</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="mapnumber" name="mapnumber" value="0" />
           </div>
         </div>
         <div class="form-group">
-          <label for="output" class="col-sm-3 control-label">Output</label>
+          <label for="output" class="col-sm-3 control-label">导出</label>
           <div class="col-sm-9">
             <textarea class="form-control input-xxlarge" rows="10" id="output"></textarea>
           </div>
@@ -67,19 +69,15 @@
     </form>
 
     <div class="bs-callout bs-callout-info">
-      <h4>Get all maps into the world with one command (Minecraft 1.8 and newer)</h4>
-      <p>This (still experimental) feature allows you to get the map items from the main
-        tool into your minecraft world already placed on a wall in the correct order.</p>
-      <p>To use it, simply enter the data you used to create the map item files. Open your
-        minecraft world, place a command block (/give @p minecraft:command_block) 2 blocks in front
-        of where the bottom left corner of the item frame wall should be. Copy the command from
-        the output text field and paste it into the command block. Place a button onto
-        the command block, click it and watch the block do its magic.</p>
-      <p>If that explanation was to complicated, you can just make a new creative
-        test world and try it out.</p>
-      <p>Please note, that if you do not understand what the command does, you should probably
-        make a backup of your world if there are important things near the location of
-        the command block that runs this command.</p>
+      <h4>使用 一键指令 导入（需要 Minecraft 1.8 或更新）</h4>
+      <p>这个实验性的功能允许你把生成的地图导入到你的 Minecraft 世界中，并按正确的顺序放置在墙上。</p>
+      <p>要使用它，只需输入你用来创建地图项目文件的数据。
+        打开你的 Minecraft 世界，在物品展示框墙的左下角前 2 个方块，
+        放置一个命令方块（/give @p minecraft:command_block）。
+        从“输出文本”字段中复制命令并将其粘贴到命令方块中。
+        触发命令方块，享受命令方块发挥它的魔力。</p>
+      <p>如果这个解释太过繁琐，你可以直接新建一个创造世界并进行尝试。</p>
+      <p>请注意，如果你不明白这个命令的作用，你可能应该备份以下你的世界。</p>
     </div>
 
   </div>
@@ -87,4 +85,5 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="commandblock.js"></script>
 </body>
+
 </html>

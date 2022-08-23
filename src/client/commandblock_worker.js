@@ -12,15 +12,15 @@ onmessage = function (oEvent) {
 function create_commandblock_string(direction, map_index, dim_vertical, count) {
   var text = 'summon MinecartCommandBlock ~ ~1 ~ ';
   var x, y, z;
-  text+= '{Riding: {id: FallingSand, Riding:{id:MinecartCommandBlock,' +
+  text += '{Riding: {id: FallingSand, Riding:{id:MinecartCommandBlock,' +
     'Riding: {id: FallingSand, Riding:{id:MinecartCommandBlock,';
   var i, index;
   for (i = 0; i < count; i++) {
-    text+= 'Riding: {id: FallingSand, Riding:{id:MinecartCommandBlock,';
+    text += 'Riding: {id: FallingSand, Riding:{id:MinecartCommandBlock,';
   }
-  text+= 'Riding:{id:FallingSand,Block:minecraft:activator_rail,Time:1}';
+  text += 'Riding:{id:FallingSand,Block:minecraft:activator_rail,Time:1}';
 
-  text+= ',Command:kill @e[type=MinecartCommandBlock,r=1]}}';
+  text += ',Command:kill @e[type=MinecartCommandBlock,r=1]}}';
 
   for (i = 0; i < count; i++) {
     index = i + map_index;
@@ -47,7 +47,7 @@ function create_commandblock_string(direction, map_index, dim_vertical, count) {
     }
 
 
-    text+= ',Command:"summon ItemFrame ~' + x + ' ~' + y + ' ~' + z + ' {Direction:' +
+    text += ',Command:"summon ItemFrame ~' + x + ' ~' + y + ' ~' + z + ' {Direction:' +
       direction + ',Item:{id:minecraft:filled_map, Damage:' + index + '}}"}}';
   }
 
@@ -85,7 +85,7 @@ function create_commandblock_string(direction, map_index, dim_vertical, count) {
     z2 = (count / dim_vertical - 1) * -1;
   }
 
-  text+= ',Command:fill ~' + x1 + ' ~' + y1 + ' ~' + z1 +
+  text += ',Command:fill ~' + x1 + ' ~' + y1 + ' ~' + z1 +
     ' ~' + x2 + ' ~' + y2 + ' ~' + z2 + ' minecraft:sandstone}},}';
 
   return text;

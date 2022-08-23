@@ -1,21 +1,24 @@
-<html>
+<html lang="zh-Hans">
+
 <head>
-  <title>MC Map Item Tool</title>
+  <title>Minecraft 地图画生成器</title>
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="css/bootstrap-slider.min.css" rel="stylesheet" media="screen">
   <link href="css/main.css" rel="stylesheet" media="screen">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
+
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">MC Map Item Tool</a>
+        <a class="navbar-brand" href="#">Minecraft 地图画生成器</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/">Main</a></li>
+        <li><a href="/">主页</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li class="active"><a href="settings.html">Settings</a></li>
+        <li class="active"><a href="settings.html">设置</a></li>
+        <li><a href="commandblock.html">指令生成器（实验性功能）</a></li>
       </ul>
     </div>
   </nav>
@@ -23,7 +26,7 @@
     <form class="form-horizontal">
       <fieldset>
         <div class="form-group">
-          <label for="colorSpace" class="col-sm-3 control-label">Color space</label>
+          <label for="colorSpace" class="col-sm-3 control-label">色彩空间</label>
           <div class="col-sm-9">
             <select name="colorSpace" id="colorSpace" class="form-control">
               <option value="laba">LABA</option>
@@ -34,66 +37,67 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="newColors" class="col-sm-3 control-label">Color scheme (depends on the version of Minecraft)</label>
+          <label for="newColors" class="col-sm-3 control-label">颜色方案（取决于Minecraft版本）</label>
           <div class="col-sm-9">
             <select name="newColors" id="newColors" class="form-control">
               <option value="no">Old colors</option>
-              <option value="yes">Version 1.7.2 (2013)</option>
-              <option value="181">Version 1.8.1 (2014)</option>
-              <option value="17w06a">Snapshot 17w06a</option>
-              <option value="112">Version 1.12 (2017)</option>
-              <option value="116">Version 1.16 (2020)</option>
+              <option value="yes">正式版 1.7.2 (2013)</option>
+              <option value="181">正式版 1.8.1 (2014)</option>
+              <option value="17w06a">快照版 17w06a</option>
+              <option value="112">正式版 1.12 (2017)</option>
+              <option value="116">正式版 1.16 (2020)</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="dithering" class="col-sm-3 control-label">Dithering</label>
+          <label for="dithering" class="col-sm-3 control-label">扩散抖动</label>
           <div class="col-sm-9">
             <select name="dithering" id="dithering" class="form-control">
-              <option value="no">No dithering</option>
+              <option value="no">无</option>
               <option value="floydsteinberg">Floyd-Steinberg</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="interpolation" class="col-sm-3 control-label">Interpolation</label>
+          <label for="interpolation" class="col-sm-3 control-label">插值</label>
           <div class="col-sm-9">
             <select name="interpolation" id="interpolation" class="form-control">
-              <option value="standard">Standard</option>
-              <option value="nearest_neighbor">Nearest Neighbor</option>
+              <option value="standard">标准</option>
+              <option value="nearest_neighbor">最近邻</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="transparency" class="col-sm-3 control-label">Transparency threshold</label>
+          <label for="transparency" class="col-sm-3 control-label">通透性阈值</label>
           <div class="col-sm-9">
             <div class="col-xs-10" style="padding-left:0px">
-              <input type="range" id="transparency" class="form-control" name="transparency" value="50" min="0" max="255" />
+              <input type="range" id="transparency" class="form-control" name="transparency" value="50" min="0"
+                max="255" />
             </div>
             <div class="col-xs-2" style="padding-right:0px">
-              <input type="text" id="transparency_label" class="form-control" readonly="true" />
+              <input type="text" id="transparency_label" class="form-control" readonly="true" aria-label="通透性阈值" />
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="x_center" class="col-sm-3 control-label">X center</label>
+          <label for="x_center" class="col-sm-3 control-label">X 轴中心</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="x_center" name="x_center" value="0" />
           </div>
         </div>
         <div class="form-group">
-          <label for="z_center" class="col-sm-3 control-label">Z center</label>
+          <label for="z_center" class="col-sm-3 control-label">Z 轴中心</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" id="z_center" name="z_center" value="0" />
           </div>
         </div>
         <div class="form-group">
-          <label for="dimension" class="col-sm-3 control-label">Dimension</label>
+          <label for="dimension" class="col-sm-3 control-label">维度</label>
           <div class="col-sm-9">
             <select name="dimesion" id="dimension" class="form-control">
-              <option value="0">Overworld</option>
-              <option value="1">Nether</option>
-              <option value="2">End</option>
+              <option value="0">主世界</option>
+              <option value="1">下界</option>
+              <option value="2">末地</option>
             </select>
           </div>
         </div>
@@ -111,4 +115,5 @@
   <script src="js/cookies.min.js"></script>
   <script src="settings.js"></script>
 </body>
+
 </html>

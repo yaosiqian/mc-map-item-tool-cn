@@ -1,6 +1,6 @@
 document.getElementById("savesettings").addEventListener("click", savesettings, false);
 
-$(document).ready(function() {
+$(document).ready(function () {
   var colourSpace = Cookies.get('colourSpace') || 'laba';
   var xcenter = Cookies.get('xcenter') || '0';
   var zcenter = Cookies.get('zcenter') || '0';
@@ -20,7 +20,7 @@ $(document).ready(function() {
   $('#transparency').val(transparency);
   $('#transparency_label').val(transparency + '/255');
 
-  $('#transparency').on("input change", function() {
+  $('#transparency').on("input change", function () {
     $('#transparency_label').val($('#transparency').val() + '/255');
   });
 });

@@ -31,7 +31,7 @@ describe('Server', function() {
 
   it('should serve static files', function(done) {
     doGetRequest('/', function(res, body) {
-      expect(body).to.contain('MC Map Item Tool');
+      expect(body).to.contain('Minecraft 地图画生成器');
       done();
     });
   });

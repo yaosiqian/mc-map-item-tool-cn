@@ -1,4 +1,10 @@
-.step-1, .step-2, .step-3, .step-4, .step-5, .step-0-canvas, .step-0-image {
+.step-1,
+.step-2,
+.step-3,
+.step-4,
+.step-5,
+.step-0-canvas,
+.step-0-image {
   border: 1px solid #DDD;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -7,6 +13,7 @@
   padding: 15px;
   margin: 10px;
 }
+
 .hidden {
   display: none;
 }
@@ -20,64 +27,78 @@
 }
 
 .jumbotron {
-  background-image:url('../img/logo_bg.png');
+  background-image: url('../img/logo_bg.png');
   color: #ddd;
 }
 
 /* centered columns styles */
 .row-centered {
-    text-align:center;
+  text-align: center;
 }
+
 .col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
+  display: inline-block;
+  float: none;
+  /* reset the text-align */
+  text-align: left;
+  /* inline-block space fix */
+  margin-right: -4px;
 }
 
 #original_img.pixelated {
-  image-rendering:optimizeSpeed;             /* Legal fallback */
-  image-rendering:-moz-crisp-edges;          /* Firefox        */
-  image-rendering:-o-crisp-edges;            /* Opera          */
-  image-rendering:-webkit-optimize-contrast; /* Safari         */
-  image-rendering:optimize-contrast;         /* CSS3 Proposed  */
-  image-rendering:crisp-edges;               /* CSS4 Proposed  */
-  image-rendering:pixelated;                 /* CSS4 Proposed  */
-  -ms-interpolation-mode:nearest-neighbor;   /* IE8+           */
+  image-rendering: optimizeSpeed;
+  /* Legal fallback */
+  image-rendering: -moz-crisp-edges;
+  /* Firefox        */
+  image-rendering: -o-crisp-edges;
+  /* Opera          */
+  image-rendering: -webkit-optimize-contrast;
+  /* Safari         */
+  image-rendering: optimize-contrast;
+  /* CSS3 Proposed  */
+  image-rendering: crisp-edges;
+  /* CSS4 Proposed  */
+  image-rendering: pixelated;
+  /* CSS4 Proposed  */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE8+           */
 }
 
 /* Side notes for calling out things
 -------------------------------------------------- */
- 
+
 /* Base styles (regardless of theme) */
 .bs-callout {
-margin: 20px 0;
-padding: 15px 30px 15px 15px;
-border-left: 5px solid #eee;
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
 }
+
 .bs-callout h4 {
-margin-top: 0;
+  margin-top: 0;
 }
+
 .bs-callout p:last-child {
-margin-bottom: 0;
+  margin-bottom: 0;
 }
+
 .bs-callout code,
 .bs-callout .highlight {
-background-color: #fff;
+  background-color: #fff;
 }
- 
+
 /* Themes for different contexts */
 .bs-callout-danger {
-background-color: #fcf2f2;
-border-color: #dFb5b4;
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
 }
+
 .bs-callout-warning {
-background-color: #fefbed;
-border-color: #f1e7bc;
+  background-color: #fefbed;
+  border-color: #f1e7bc;
 }
+
 .bs-callout-info {
-background-color: #f0f7fd;
-border-color: #d0e3f0;
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
 }

@@ -24,7 +24,7 @@ function draw(f) {
 
   img.src = src;
   original_img.src = src;
-  img.onload = function() {
+  img.onload = function () {
 
     url.revokeObjectURL(src);
 
@@ -111,16 +111,16 @@ function selectnumber(ev) {
 
   selected_ratio = map_parts_horizontal / map_parts_vertical;
   if (map_parts_horizontal >= map_parts_vertical) {
-    ctx_full_scaled.drawImage(canvas_full, 0, 0, 256, 256 * (1/selected_ratio));
+    ctx_full_scaled.drawImage(canvas_full, 0, 0, 256, 256 * (1 / selected_ratio));
   } else {
     ctx_full_scaled.drawImage(canvas_full, 0, 0, 256 * selected_ratio, 256);
   }
 
-  // draw scaled version of ctx_full onto canvas#canvas_full_scaled
+  // draw scaled 正式版 of ctx_full onto canvas#canvas_full_scaled
   // add part selection to span#list_settings
 
-  settings_string += '<tr><td>Map parts horizontal</td><td>' + map_parts_horizontal + '</td></tr>';
-  settings_string += '<tr><td>Map parts vertical</td><td>' + map_parts_vertical + '</td></tr>';
+  settings_string += '<tr><td>横向分割</td><td>' + map_parts_horizontal + '</td></tr>';
+  settings_string += '<tr><td>纵向分割</td><td>' + map_parts_vertical + '</td></tr>';
   $('#list_settings').html('<table style="margin-left: auto; margin-right: auto; width: 300px">' + settings_string + '</table>');
 
   drawCanvas(0, 0);
@@ -190,10 +190,11 @@ function reducecolors(ev) {
   $('#reducecolors').addClass('hidden');
   var ctx = document.getElementById('canvas_full').getContext('2d');
   var pixelData = ctx.getImageData(0, 0, 128 * map_parts_horizontal, 128 * map_parts_vertical);
-  
+
   var worker = new Worker("reduce_colors_worker.js");
 
-  worker.postMessage({pixelData: pixelData,
+  worker.postMessage({
+    pixelData: pixelData,
     new_colors: Cookies.get('newColors') || '181',
     colourSpace: Cookies.get('colourSpace') || 'laba',
     dithering: Cookies.get('dithering') || 'no',
@@ -203,15 +204,15 @@ function reducecolors(ev) {
   var time_start = new Date();
   var duration = 0;
 
-  worker.onmessage = function(oEvent) {
+  worker.onmessage = function (oEvent) {
     if (oEvent.data.step == 'finished') {
       ctx.putImageData(oEvent.data.pixelData, 0, 0);
       all_maps_data = oEvent.data.all_maps_data;
 
-      // redraw scaled and now color reduced version of ctx_full onto canvas#canvas_full_scaled
+      // redraw scaled and now color reduced 正式版 of ctx_full onto canvas#canvas_full_scaled
       var ctx_full_scaled = document.getElementById('canvas_full_scaled').getContext('2d');
       if (map_parts_horizontal >= map_parts_vertical) {
-        ctx_full_scaled.drawImage(canvas_full, 0, 0, 256, 256 * (1/selected_ratio));
+        ctx_full_scaled.drawImage(canvas_full, 0, 0, 256, 256 * (1 / selected_ratio));
       } else {
         ctx_full_scaled.drawImage(canvas_full, 0, 0, 256 * selected_ratio, 256);
       }
@@ -236,9 +237,9 @@ function reducecolors(ev) {
       $('#tabs a[href="#step4"]').tab('show');
       duration = Math.abs(time_start - new Date()) / 1000;
       $('#reducecolors_time').parent().removeClass('hidden');
-      $('#reducecolors_time').html('Reducing colors took ' + duration + ' seconds.');
+      $('#reducecolors_time').html('纠正颜色花费 ' + duration + ' 秒');
     } else if (oEvent.data.step == 'percentage') {
-      $('#reducecolors_progress').html(oEvent.data.percentage + '% complete.');
+      $('#reducecolors_progress').html(oEvent.data.percentage + '% 完成度');
     } else if (oEvent.data.step == 'debug') {
       console.log(oEvent.data.message);
     }
@@ -279,7 +280,7 @@ function createfile(ev) {
             map_item.push(co);
           }
         }
-        (function() {
+        (function () {
           var x = i;
           var y = j;
           $.post('createfile', {
@@ -288,24 +289,24 @@ function createfile(ev) {
             z_center: zcenter,
             dimension: dim,
             randomid: randomid
-          }, function(data) {
+          }, function (data) {
             responses[y + map_parts_vertical * x] = data;
             responses_count++;
-            updateResponse('zip_file_part', {done_count: responses_count, map_count: map_parts_horizontal * map_parts_vertical});
+            updateResponse('zip_file_part', { done_count: responses_count, map_count: map_parts_horizontal * map_parts_vertical });
             if (responses_count === map_parts_horizontal * map_parts_vertical) {
               if (responses_count == 1) {
-                updateResponse('single_file_finished', {filename: responses[0], mapnumber: mapnumber, time_start: time_start});
+                updateResponse('single_file_finished', { filename: responses[0], mapnumber: mapnumber, time_start: time_start });
               } else {
                 $.post('createzip', {
                   mapfiles: JSON.stringify(responses),
                   zipname: randomid,
                   mapnumber: mapnumber
-                }, function(data) {
-                  updateResponse('zip_file_finished', {filename: data, time_start: time_start});
+                }, function (data) {
+                  updateResponse('zip_file_finished', { filename: data, time_start: time_start });
                 });
               }
             }
-          }).error(function() {
+          }).error(function () {
             updateResponse('error');
           });
         }());
@@ -347,41 +348,41 @@ function updateResponse(step, data) {
 
   if (step == 'single_file_finished') {
     response_text = '<a href="tmp/' + data['filename'] + '.dat?mapnumber=' +
-        data['mapnumber'] + '">Download</a>' + " (map_" + data['mapnumber'] + ".dat)";
+      data['mapnumber'] + '">下载</a>' + "（map_" + data['mapnumber'] + ".dat）";
     $('#ajaxreply').html(response_text);
     duration = Math.abs(data.time_start - new Date()) / 1000;
     $('#ajaxreply_time').parent().removeClass('hidden');
-    $('#ajaxreply_time').html('Creating map file took ' + duration + ' seconds.');
+    $('#ajaxreply_time').html('生成地图花费 ' + duration + ' 秒');
     $('#tabs a[href="#step5"]').tab('show');
     if ($('#notification').is(':checked') && Notification.permission === "granted") {
-      notification = new Notification("MC Map Item Tool", {
-        body: "Creating map file finished in " + duration + " seconds."
+      notification = new Notification("Minecraft 地图画生成器", {
+        body: "生成地图在 " + duration + " 秒内完成"
       });
     }
   } else if (step == 'zip_file_finished') {
     console.log(data);
-    response_text = '<a href="tmp/' + data['filename'] + '.zip">Download</a>' + " (Zip archive with map files)";
+    response_text = '<a href="tmp/' + data['filename'] + '.zip">下载</a>' + "（包含地图文件的压缩包）";
     $('#ajaxreply').html(response_text);
     duration = Math.abs(data.time_start - new Date()) / 1000;
     $('#ajaxreply_time').parent().removeClass('hidden');
-    $('#ajaxreply_time').html('Creating map files took ' + duration + ' seconds.');
+    $('#ajaxreply_time').html('生成地图花费 ' + duration + ' 秒');
     $('#tabs a[href="#step5"]').tab('show');
     if ($('#notification').is(':checked') && Notification.permission === "granted") {
-      notification = new Notification("MC Map Item Tool", {
-        body: "Creating map files finished in " + duration + " seconds."
+      notification = new Notification("Minecraft 地图画生成器", {
+        body: "生成地图在 " + duration + " 秒内完成"
       });
     }
   } else if (step == 'zip_file_part') {
-    response_text = "Creating maps: " + data['done_count'] + " of " + data['map_count'] + " done.";
+    response_text = "地图生成中：" + data['done_count'] + " 至 " + data['map_count'];
     $('#ajaxreply').html(response_text);
     $('#tabs a[href="#step5"]').tab('show');
   } else if (step == 'error') {
-    response_text = "The server returned an error. If you think, this is a malfunction, please report it (via github, twitter, ..).";
+    response_text = "服务器坏掉了，但这不是服务器的错~";
     $('#ajaxreply').html(response_text);
     $('#instruction').addClass('hidden');
     $('#tabs a[href="#step5"]').tab('show');
     if ($('#notification').is(':checked') && Notification.permission === "granted") {
-      notification = new Notification("MC Map Item Tool", {
+      notification = new Notification("Minecraft 地图画生成器", {
         body: response_text
       });
     }
@@ -411,24 +412,24 @@ function updateResponse(step, data) {
 function list_settings() {
   var colorSchemeToText = {
     'no': 'Old colors',
-    'yes': 'Version 1.7.2 (2013)',
-    '181': 'Version 1.8.1 (2014)',
-    '17w06a': 'Snapshot 17w06a',
-    '112': 'Version 1.12 (2017)',
-    '116': 'Version 1.16 (2020)'
+    'yes': '正式版 1.7.2 (2013)',
+    '181': '正式版 1.8.1 (2014)',
+    '17w06a': '快照版 17w06a',
+    '112': '正式版 1.12 (2017)',
+    '116': '正式版 1.16 (2020)'
   };
   var dimensionToText = {
-    '0': 'Overworld',
-    '1': 'Nether',
-    '2': 'End'
+    '0': '主世界',
+    '1': '下界',
+    '2': '末地'
   };
   var ditheringToText = {
-    'no': 'No dithering',
+    'no': '无',
     'floydsteinberg': 'Floyd-Steinberg',
   };
   var interpolationToText = {
-    'standard': 'Standard',
-    'nearest_neighbor': 'Nearest Neighbor'
+    'standard': '标准',
+    'nearest_neighbor': '最近邻'
   };
   var sett_colorSpace = Cookies.get('colourSpace') || 'laba';
   var sett_colorScheme = colorSchemeToText[Cookies.get('newColors') || 'yes'];
@@ -438,13 +439,13 @@ function list_settings() {
   var sett_zCenter = Cookies.get('zcenter') || '0';
   var sett_dimension = dimensionToText[Cookies.get('dimension') || '0'];
 
-  settings_string = '<tr><td>Color space</td><td>' + sett_colorSpace + '</td></tr>';
-  settings_string += '<tr><td>Color scheme</td><td>' + sett_colorScheme + '</td></tr>';
-  settings_string += '<tr><td>Dithering</td><td>' + sett_dithering + '</td></tr>';
-  settings_string += '<tr><td>Interpolation</td><td>' + sett_interpolation + '</td></tr>';
-  settings_string += '<tr><td>X Center</td><td>' + sett_xCenter + '</td></tr>';
-  settings_string += '<tr><td>Z Center</td><td>' + sett_zCenter + '</td></tr>';
-  settings_string += '<tr><td>Dimension</td><td>' + sett_dimension + '</td></tr>';
+  settings_string = '<tr><td>色彩空间</td><td>' + sett_colorSpace + '</td></tr>';
+  settings_string += '<tr><td>颜色方案</td><td>' + sett_colorScheme + '</td></tr>';
+  settings_string += '<tr><td>扩散抖动</td><td>' + sett_dithering + '</td></tr>';
+  settings_string += '<tr><td>插值</td><td>' + sett_interpolation + '</td></tr>';
+  settings_string += '<tr><td>X 轴中心</td><td>' + sett_xCenter + '</td></tr>';
+  settings_string += '<tr><td>Z 轴中心</td><td>' + sett_zCenter + '</td></tr>';
+  settings_string += '<tr><td>维度</td><td>' + sett_dimension + '</td></tr>';
   $('#list_settings').html('<table style="margin-left: auto; margin-right: auto; width: 300px">' + settings_string + '</table>');
 }
 
@@ -468,7 +469,7 @@ var all_maps_data;
 var map_x;
 var map_y;
 
-function preventDefaults (e) {
+function preventDefaults(e) {
   e.preventDefault()
   e.stopPropagation()
 }
@@ -488,18 +489,18 @@ function handleDrop(e) {
 }
 
 dropArea = document.getElementById('drop-area');
-dropArea.addEventListener('dragenter',preventDefaults, false);
-dropArea.addEventListener('dragenter',highlight, false);
-dropArea.addEventListener('dragover',preventDefaults, false);
-dropArea.addEventListener('dragover',highlight, false);
-dropArea.addEventListener('dragleave',preventDefaults, false);
-dropArea.addEventListener('dragleave',unhighlight, false);
-dropArea.addEventListener('drop',preventDefaults, false);
-dropArea.addEventListener('drop',unhighlight, false);
-dropArea.addEventListener('drop',handleDrop, false);
+dropArea.addEventListener('dragenter', preventDefaults, false);
+dropArea.addEventListener('dragenter', highlight, false);
+dropArea.addEventListener('dragover', preventDefaults, false);
+dropArea.addEventListener('dragover', highlight, false);
+dropArea.addEventListener('dragleave', preventDefaults, false);
+dropArea.addEventListener('dragleave', unhighlight, false);
+dropArea.addEventListener('drop', preventDefaults, false);
+dropArea.addEventListener('drop', unhighlight, false);
+dropArea.addEventListener('drop', handleDrop, false);
 
-uploader=document.getElementById("uploadimage")
-uploader.addEventListener("change", function(){draw(uploader.files[0])}, false);
+uploader = document.getElementById("uploadimage")
+uploader.addEventListener("change", function () { draw(uploader.files[0]) }, false);
 document.getElementById("selectnumberofparts").addEventListener("click", selectnumber, false);
 document.getElementById("reducecolors").addEventListener("click", reducecolors, false);
 document.getElementById("createfile").addEventListener("click", createfile, false);
@@ -507,7 +508,7 @@ document.getElementById("createfile").addEventListener("click", createfile, fals
 document.getElementById("prevmap").addEventListener("click", prevMap, false);
 document.getElementById("nextmap").addEventListener("click", nextMap, false);
 
-$(document).ready(function() {
+$(document).ready(function () {
   // console.log('dom ready');
   $('.step-0-image').addClass('hidden');
   $('.step-0-canvas').addClass('hidden');
@@ -518,8 +519,8 @@ $(document).ready(function() {
     // This browser does not support notifications
     $('.notification-form-div').addClass('hidden');
   } else {
-    $('#notification').change(function() {
-      if(this.checked) {
+    $('#notification').change(function () {
+      if (this.checked) {
         if (Notification.permission !== 'denied') {
           Notification.requestPermission();
         }
