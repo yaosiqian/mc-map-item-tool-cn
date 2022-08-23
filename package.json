@@ -1,5 +1,5 @@
 {
-  "name": "minecraft-map-item-tool",
+  "name": "minecraft-map-item-tool-cn",
   "version": "1.8.0",
   "description": "web tool for converting images to minecraft maps",
   "main": "lib/server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/djfun/mc-map-item-tool.git"
+    "url": "https://github.com/yaosiqian/mc-map-item-tool-cn.git"
   },
   "author": "Martin Kaistra",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/djfun/mc-map-item-tool/issues"
   },
-  "homepage": "https://github.com/djfun/mc-map-item-tool",
+  "homepage": "https://github.com/yaosiqian/mc-map-item-tool-cn",
   "engines": {
     "node": ">=6.11.2"
   },
